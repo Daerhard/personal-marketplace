@@ -62,6 +62,14 @@ Nothing found in the marketplace for this task. Should I proceed without additio
 
 ---
 
+## When making changes to the marketplace
+
+Before finishing any change, follow the versioning workflow in `tech/versioning.md`:
+1. Determine change type (patch / minor / major)
+2. Bump `plugin/.claude-plugin/plugin.json` version
+3. Bump `.claude-plugin/marketplace.json` version (top-level + plugin entry)
+4. Update `index/index.md` if a new file was added
+
 ## Reference files
 
 | File | Purpose |
@@ -69,3 +77,4 @@ Nothing found in the marketplace for this task. Should I proceed without additio
 | `index/index.md` | Master list of all marketplace documents |
 | `index/tags.md` | All available tags with descriptions |
 | `index/header-schema.md` | Rules for document headers |
+| `tech/versioning.md` | Versioning rules and agent workflow |

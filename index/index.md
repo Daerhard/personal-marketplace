@@ -13,6 +13,7 @@
 ## tech
 | File | Title | Feature | Tags |
 |------|-------|---------|------|
+| tech/versioning.md | Plugin Versioning Guide | tech | reference, guide, global, plugin, versioning |
 
 ## plugins
 | File | Title | Feature | Tags |
