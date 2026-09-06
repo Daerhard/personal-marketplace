@@ -62,6 +62,23 @@ Nothing found in the marketplace for this task. Should I proceed without additio
 
 ---
 
+## Plugin and tool failure reporting
+
+If any plugin, MCP server, hook, or tool fails during session start or at any point:
+
+**Never fail silently.** Always report:
+```
+Plugin: <name>
+Status: FAILED
+Error: <exact error or signal>
+Likely cause: <one-line diagnosis>
+Fix: <concrete next step>
+```
+
+Report all failures before continuing with the user's request. If the GitHub MCP fails, report it and fall back to noting that marketplace context could not be loaded — do not proceed as if it succeeded.
+
+For full error handling standards see `tech/plugin-error-handling.md`.
+
 ## When making changes to the marketplace
 
 Before finishing any change, follow the versioning workflow in `tech/versioning.md`:

@@ -15,6 +15,7 @@ If no existing tag fits, add a new entry here under the correct category, then u
 - `template` — reusable boilerplate or starter file
 - `schema` — data model, API contract, or format definition
 - `versioning` — semantic versioning rules and release workflow
+- `troubleshooting` — failure modes, diagnostics, and fixes
 
 ## Scope
 - `global` — applies across all projects

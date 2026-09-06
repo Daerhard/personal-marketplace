@@ -14,6 +14,7 @@
 | File | Title | Feature | Tags |
 |------|-------|---------|------|
 | tech/versioning.md | Plugin Versioning Guide | tech | reference, guide, global, plugin, versioning |
+| tech/plugin-error-handling.md | Plugin Error Handling Standard | tech | reference, guide, global, plugin, troubleshooting |
 
 ## plugins
 | File | Title | Feature | Tags |
