@@ -1,7 +1,7 @@
 ```json
 {
   "title": "GitHub MCP Plugin",
-  "description": "Official GitHub MCP server giving Claude access to the marketplace repo and any other GitHub repos. Required for session-start context loading.",
+  "description": "Official GitHub MCP server giving Claude access to GitHub repos, issues, PRs, and the full GitHub API. Managed via the claude-plugins-official marketplace.",
   "feature": "plugins",
   "project": "",
   "tags": ["plugin", "github", "reference", "global"]
@@ -10,33 +10,32 @@
 
 # GitHub MCP Plugin
 
-Official GitHub MCP server. Provides Claude with GitHub API access — used to fetch marketplace documents at session start and throughout sessions.
+Official GitHub MCP server by GitHub. Provides full GitHub API access — used for fetching marketplace documents at session start and for any GitHub interaction during sessions.
 
-## Required for
+## Source
 
-- Session start context loading (`hooks/user-prompt-submit/marketplace-context.sh` + `session-start.md`)
-- Reading and updating marketplace files without a local clone
+Managed by the `claude-plugins-official` marketplace (pre-registered by default in Claude Code).
+Plugin ID: `github@claude-plugins-official`
 
-## Setup
+## Enable
 
-Add to your Claude Code MCP config (`~/.claude/settings.json` or project `.claude/settings.json`):
+Add to `~/.claude/settings.json`:
 
 ```json
 {
-  "mcpServers": {
-    "github": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "<your-token>"
-      }
-    }
+  "enabledPlugins": {
+    "github@claude-plugins-official": true
   }
 }
 ```
 
+## Authentication
+
+Uses `GITHUB_PERSONAL_ACCESS_TOKEN` from the `env` block in `~/.claude/settings.json`.
+
 Required token scopes: `repo`, `read:org`
 
-## Target repo
+## Used by
 
-`Daerhard/personal-marketplace`
+- `session-start.md` — fetches marketplace documents at session start
+- Any session requiring GitHub repo access
