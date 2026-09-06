@@ -1,0 +1,18 @@
+{
+  "name": "daerhard",
+  "owner": {
+    "name": "Daerhard",
+    "email": "erhard-daniel@gmx.de"
+  },
+  "metadata": {
+    "description": "Personal marketplace plugins by Daerhard"
+  },
+  "plugins": [
+    {
+      "name": "personal-context",
+      "version": "1.0.0",
+      "source": "./plugin",
+      "description": "Loads personal marketplace context at session start via GitHub MCP"
+    }
+  ]
+}
