@@ -1,6 +1,6 @@
 {
   "name": "daerhard",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "owner": {
     "name": "Daerhard",
     "email": "erhard-daniel@gmx.de"
@@ -14,6 +14,12 @@
       "version": "1.0.0",
       "source": "./plugin",
       "description": "Loads personal marketplace context at session start via GitHub MCP"
+    },
+    {
+      "name": "github-mcp",
+      "version": "1.0.0",
+      "source": "./github-mcp",
+      "description": "GitHub MCP server via Docker. Full GitHub API access with a standard PAT, no Copilot required."
     }
   ]
 }
