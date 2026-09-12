@@ -25,6 +25,9 @@ If no existing tag fits, add a new entry here under the correct category, then u
 - `typescript`
 - `python`
 - `java`
+- `kotlin`
+- `react`
+- `android`
 - `spring`
 - `postgres`
 - `docker`
@@ -36,5 +39,14 @@ If no existing tag fits, add a new entry here under the correct category, then u
 - `backend` — server-side logic
 - `frontend` — client-side or UI
 - `infra` — infrastructure or deployment
+- `deployment` — release/deploy process and runbooks, narrower than `infra`
 - `data` — data modeling or processing
 - `testing` — test setup, strategies, or fixtures
+- `food` — food, nutrition, or cooking domain
+- `planning` — planning or scheduling domain
+
+## Pattern
+- `npd` — Narrative Pipeline Development, the pipeline-vocabulary coding methodology
+- `hexagonal-architecture` — ports-and-adapters architecture
+- `solid` — the SOLID object-oriented design principles
+- `observer-pattern` — the Observer design pattern
