@@ -1,26 +1,26 @@
 {
   "name": "daerhard",
-  "version": "1.5.0",
+  "version": "2.0.0",
   "owner": { "name": "Daerhard", "email": "erhard-daniel@gmx.de" },
   "metadata": { "description": "Personal marketplace plugins by Daerhard" },
   "plugins": [
     {
       "name": "personal-context",
-      "version": "1.1.0",
+      "version": "2.0.0",
       "source": {
         "source": "git-subdir",
         "url": "https://github.com/Daerhard/personal-marketplace.git",
-        "path": "plugin"
+        "path": "plugins/personal-context"
       },
       "description": "Loads personal marketplace context at session start via GitHub MCP"
     },
     {
       "name": "github-mcp",
-      "version": "1.0.0",
+      "version": "2.0.0",
       "source": {
         "source": "git-subdir",
         "url": "https://github.com/Daerhard/personal-marketplace.git",
-        "path": "github-mcp"
+        "path": "plugins/github-mcp"
       },
       "description": "GitHub MCP server via Docker. Full GitHub API access with a standard PAT, no Copilot required."
     }
