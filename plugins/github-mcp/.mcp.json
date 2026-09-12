@@ -1,11 +1,7 @@
 {
   "github": {
     "type": "stdio",
-    "command": "docker",
-    "args": [
-      "run", "-i", "--rm",
-      "-e", "GITHUB_PERSONAL_ACCESS_TOKEN",
-      "ghcr.io/github/github-mcp-server"
-    ]
+    "command": "bash",
+    "args": ["${CLAUDE_PLUGIN_ROOT}/run.sh"]
   }
 }
