@@ -1,0 +1,9 @@
+{
+  "name": "personal-context",
+  "version": "2.0.0",
+  "description": "Loads personal marketplace context at session start via GitHub MCP",
+  "author": {
+    "name": "Daerhard"
+  },
+  "repository": "https://github.com/Daerhard/personal-marketplace"
+}
