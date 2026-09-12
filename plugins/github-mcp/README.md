@@ -1,7 +1,7 @@
 ```json
 {
   "title": "GitHub MCP Plugin",
-  "description": "Official GitHub MCP server (Docker) giving Claude access to GitHub repos, issues, PRs, and the full GitHub API. Works with a standard PAT, no Copilot required.",
+  "description": "Official GitHub MCP server (Docker) giving Claude access to GitHub repos, issues, PRs, Projects, and the full GitHub API. Works with a standard PAT, no Copilot required.",
   "feature": "plugins",
   "project": "",
   "tags": ["plugin", "reference", "global"]
@@ -41,6 +41,7 @@ script, or replicate its logic directly:
       "args": [
         "run", "-i", "--rm",
         "-e", "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "-e", "GITHUB_TOOLSETS=all",
         "ghcr.io/github/github-mcp-server"
       ]
     }
@@ -59,19 +60,37 @@ token) if the env var isn't set. This exists so a single misconfigured/lost env 
 regress back to the OAuth loop — keep at least one of the two set. Override the fallback path with
 the `GITHUB_MCP_TOKEN_FILE` env var if needed.
 
-Required token scopes: `repo`, `read:org`
+Required token scopes: `repo`, `read:org`. **GitHub Projects (v2) additionally needs the `project`
+scope** (classic PAT) or Projects read/write permission (fine-grained PAT) — without it, project
+tools will be visible but calls against them will fail with a permissions error even though the
+toolset itself is enabled.
 
 No GitHub Copilot subscription required.
 
 **Token expiry:** if this is a fine-grained or expiring classic PAT, its expiration date is a future
 failure point — when it lapses, `run.sh` will fail loudly (good), but that's still an interruption.
-Either use a non-expiring classic PAT scoped tightly to `repo`/`read:org`, or set a reminder to
-rotate it before expiry.
+Either use a non-expiring classic PAT scoped tightly to `repo`/`read:org`/`project`, or set a reminder
+to rotate it before expiry.
+
+## Toolsets
+
+The official image only exposes a curated default set of tools unless told otherwise via
+`GITHUB_TOOLSETS`. `run.sh` sets this to `all` by default (overridable by exporting `GITHUB_TOOLSETS`
+before it runs), which includes:
+
+- `repos`, `issues`, `pull_requests` — the defaults, already in use
+- `projects` — GitHub Projects v2 (boards, project items) — **enabled by this change**, previously
+  unavailable regardless of PAT scopes
+- everything else the server ships (actions, code_security, discussions, gists, notifications, orgs,
+  users, dependabot, secret_protection, stargazers, ...)
+
+If tool-list bloat ever becomes a problem, narrow this to a specific comma-separated list instead of
+`all` — e.g. `repos,issues,pull_requests,projects`.
 
 ## Used by
 
 - `session-start.md` — fetches marketplace documents at session start
-- Any session requiring GitHub repo access
+- Any session requiring GitHub repo, issue, PR, or Projects access
 
 ## Troubleshooting
 
@@ -81,8 +100,10 @@ rotate it before expiry.
 | `Unable to find image` | Image not pulled yet | Run `docker pull ghcr.io/github/github-mcp-server` |
 | Clear `ERROR: GITHUB_PERSONAL_ACCESS_TOKEN is not set` message | Neither the env var nor the fallback token file is set | Set one of the two per Authentication above |
 | "visit github.com/login/device" prompt at all | You're not running `run.sh` — something is still invoking the bare `docker run` form without the guard | Confirm `.mcp.json` points at `run.sh`, not `docker` directly |
+| Project tools missing from the tool list | `GITHUB_TOOLSETS` isn't reaching the container as `all` (or a list including `projects`) | Confirm you're running the current `run.sh`, not a cached/older version |
+| Project tool calls fail with a permissions error | PAT lacks the `project` scope (classic) or Projects permission (fine-grained) | Regenerate the PAT with that scope added |
 | `401 Unauthorized` | Token invalid, revoked, or expired | Regenerate the PAT |
-| `403 Forbidden` | Token lacks required scopes | Regenerate PAT with `repo` and `read:org` scopes |
+| `403 Forbidden` | Token lacks required scopes | Regenerate PAT with `repo`, `read:org`, and `project` scopes |
 | Session-start fetch returns nothing | MCP not connected in session | Restart Claude Code — Docker must be running before session starts |
 | `github@claude-plugins-official` errors | Wrong plugin — Copilot endpoint | Remove it, use this Docker setup instead |
 
@@ -94,8 +115,9 @@ GITHUB_PERSONAL_ACCESS_TOKEN=your_token_here \
   bash run.sh
 ```
 
-Should return a JSON list of available GitHub tools with no login prompt. If the token is missing,
-you'll get the explicit error message instead of a hang or a device-code prompt.
+Should return a JSON list of available GitHub tools, including project-related ones, with no login
+prompt. If the token is missing, you'll get the explicit error message instead of a hang or a
+device-code prompt.
 
 ### Diagnostics
 

@@ -31,4 +31,10 @@ if [ -z "${GITHUB_PERSONAL_ACCESS_TOKEN:-}" ]; then
   exit 1
 fi
 
-exec docker run -i --rm -e GITHUB_PERSONAL_ACCESS_TOKEN ghcr.io/github/github-mcp-server
+# GITHUB_TOOLSETS controls which tool groups the server exposes. "all" includes "projects"
+# (GitHub Projects v2 boards/items), which isn't in the server's default set. Override with
+# GITHUB_TOOLSETS set before this script runs if a narrower set is ever preferred.
+exec docker run -i --rm \
+  -e GITHUB_PERSONAL_ACCESS_TOKEN \
+  -e GITHUB_TOOLSETS="${GITHUB_TOOLSETS:-all}" \
+  ghcr.io/github/github-mcp-server
