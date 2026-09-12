@@ -1,10 +1,10 @@
 {
   "name": "github-mcp",
-  "version": "2.0.0",
-  "description": "GitHub MCP server via Docker (ghcr.io/github/github-mcp-server). Full GitHub API access using a standard PAT — no Copilot required.",
+  "version": "2.1.0",
+  "description": "GitHub MCP server via Docker (ghcr.io/github/github-mcp-server). Full GitHub API access using a standard PAT — no Copilot required. Includes the Projects (v2) toolset.",
   "author": {
     "name": "Daerhard"
   },
   "repository": "https://github.com/Daerhard/personal-marketplace",
-  "keywords": ["github", "mcp", "docker", "api"]
+  "keywords": ["github", "mcp", "docker", "api", "projects"]
 }
